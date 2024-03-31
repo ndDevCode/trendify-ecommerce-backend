@@ -16,8 +16,11 @@ public class BillingInfoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private Double totalPrice;
+    @Column(nullable = false)
     private Double discount;
+    @Column(nullable = false)
     private Double tax;
 
     @OneToOne(mappedBy = "billingInfo")

@@ -20,16 +20,18 @@ public class OrderProductEntity {
     @Id
     private Long productId;
 
+    @Column(nullable = false)
     private Integer quantity;
+    @Column(nullable = false)
     private String colorId;
 
     @ManyToOne
     @MapsId("orderId")
-    @JoinColumn(name = "orders")
+    @JoinColumn(name = "orders",nullable = false)
     private OrderEntity order;
 
     @ManyToOne
     @MapsId("productId")
-    @JoinColumn(name = "product")
+    @JoinColumn(name = "product",nullable = false)
     private ProductEntity product;
 }

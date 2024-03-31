@@ -19,16 +19,20 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String contact;
+    @Column(nullable = false)
     private Long addressId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id",nullable = false)
     private CustomerEntity customer;
 
     @OneToOne
+    @JoinColumn(nullable = false)
     private BillingInfoEntity billingInfo;
 
     @OneToMany(mappedBy = "order")
+    @JoinColumn(nullable = false)
     private List<OrderProductEntity> orderProducts;
 }

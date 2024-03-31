@@ -23,8 +23,8 @@ public class SubCategoryEntity {
     @ManyToMany
     @JoinTable(
             name = "main_sub_category",
-            joinColumns = @JoinColumn(name = "sub_category_id"),
-            inverseJoinColumns = @JoinColumn(name = "main_category_id"))
+            joinColumns = @JoinColumn(name = "sub_category_id",nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "main_category_id",nullable = false))
     List<MainCategoryEntity> mainCategoryList;
 }
 

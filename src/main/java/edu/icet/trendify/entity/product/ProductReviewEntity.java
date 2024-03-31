@@ -20,16 +20,18 @@ public class ProductReviewEntity {
     @Id
     private Long productId;
 
+    @Column(nullable = false)
     private String review;
+    @Column(nullable = false)
     private Short rating;
 
     @ManyToOne
     @MapsId("cusId")
-    @JoinColumn(name = "customer")
+    @JoinColumn(name = "customer",nullable = false)
     private CustomerEntity customer;
 
     @ManyToOne
     @MapsId("productId")
-    @JoinColumn(name = "product")
+    @JoinColumn(name = "product",nullable = false)
     private ProductEntity product;
 }

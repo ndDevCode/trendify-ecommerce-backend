@@ -21,11 +21,11 @@ public class ProductCollectionEntity {
 
     @ManyToOne
     @MapsId("collectionId")
-    @JoinColumn(name = "collection")
+    @JoinColumn(name = "collection",nullable = false)
     private CollectionEntity collection;
 
     @ManyToOne
     @MapsId("productId")
-    @JoinColumn(name = "product")
+    @JoinColumn(name = "product",nullable = false)
     private ProductEntity product;
 }
