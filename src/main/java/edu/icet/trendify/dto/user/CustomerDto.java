@@ -13,7 +13,7 @@ import java.io.Serializable;
  * DTO for {@link edu.icet.trendify.entity.user.CustomerEntity}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record CustomerEntityDto(
+public record CustomerDto(
         Long id,
         @NotNull(message = "Firstname should not be empty")
         @Pattern(message = "Name should contain only letters", regexp = RegexPattern.TEXT)
