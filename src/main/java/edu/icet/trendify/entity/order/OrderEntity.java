@@ -2,6 +2,7 @@ package edu.icet.trendify.entity.order;
 
 import edu.icet.trendify.entity.billing.BillingInfoEntity;
 import edu.icet.trendify.entity.user.CustomerEntity;
+import edu.icet.trendify.util.constant.OrderStatusConverter;
 import edu.icet.trendify.util.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +26,7 @@ public class OrderEntity {
     @Column(nullable = false)
     private Long addressId;
     @Column(nullable = false)
+    @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
 
     @ManyToOne
