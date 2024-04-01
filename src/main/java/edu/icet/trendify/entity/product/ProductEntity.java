@@ -24,7 +24,7 @@ public class ProductEntity {
     @Column(nullable = false)
     private String description;
     private String image;
-
+    private Double discount;
     @OneToMany(mappedBy = "product")
     @ToString.Exclude
     private List<CartProductEntity> cartProductList;

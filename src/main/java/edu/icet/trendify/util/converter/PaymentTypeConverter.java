@@ -1,4 +1,4 @@
-package edu.icet.trendify.util.converters;
+package edu.icet.trendify.util.converter;
 
 import edu.icet.trendify.util.enums.PaymentType;
 import jakarta.persistence.Converter;
@@ -12,7 +12,7 @@ public class PaymentTypeConverter implements AttributeConverter<PaymentType, Int
 
         return switch (paymentType){
             case ONLINE -> 1;
-            case CASH_ON_DELIVERY -> 2;
+            case ON_DELIVERY -> 2;
         };
     }
 
@@ -21,7 +21,7 @@ public class PaymentTypeConverter implements AttributeConverter<PaymentType, Int
 
         return switch (integer){
             case 1 -> PaymentType.ONLINE;
-            case 2 -> PaymentType.CASH_ON_DELIVERY;
+            case 2 -> PaymentType.ON_DELIVERY;
             default -> null;
         };
     }

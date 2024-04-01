@@ -1,4 +1,4 @@
-package edu.icet.trendify.util.converters;
+package edu.icet.trendify.util.converter;
 
 import edu.icet.trendify.util.enums.Role;
 import jakarta.persistence.Converter;

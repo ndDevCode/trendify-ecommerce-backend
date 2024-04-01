@@ -21,7 +21,10 @@ public class SubInventoryEntity {
     @Id
     private Integer sizeId;
 
-    @OneToOne
+    private Integer quantity;
+    private Boolean isSoldOut;
+
+    @ManyToOne
     @MapsId("inventoryId")
     @JoinColumn(name = "inventory")
     private InventoryEntity inventory;

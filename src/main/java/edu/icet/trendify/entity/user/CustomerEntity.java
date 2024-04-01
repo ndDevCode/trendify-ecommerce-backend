@@ -21,7 +21,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "customer")
-public class CustomerEntity extends UserEntity {
+public class CustomerEntity extends User {
     @OneToMany(mappedBy = "customer")
     @ToString.Exclude
     private List<CartEntity> carts;

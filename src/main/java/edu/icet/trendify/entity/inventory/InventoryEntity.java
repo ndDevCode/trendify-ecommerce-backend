@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +32,6 @@ public class InventoryEntity {
     private Boolean isReleased;
     private String remarks;
 
-    @OneToOne(mappedBy = "inventory")
-    private SubInventoryEntity subInventory;
+    @OneToMany(mappedBy = "inventory")
+    private List<SubInventoryEntity> subInventory;
 }

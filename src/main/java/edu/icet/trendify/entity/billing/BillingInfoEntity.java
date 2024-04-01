@@ -1,6 +1,10 @@
 package edu.icet.trendify.entity.billing;
 
 import edu.icet.trendify.entity.order.OrderEntity;
+import edu.icet.trendify.util.converter.PaymentMethodConverter;
+import edu.icet.trendify.util.converter.PaymentTypeConverter;
+import edu.icet.trendify.util.enums.PaymentMethod;
+import edu.icet.trendify.util.enums.PaymentType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,10 +27,13 @@ public class BillingInfoEntity {
     @Column(nullable = false)
     private Double tax;
 
+    @Column(nullable = false)
+    @Convert(converter = PaymentTypeConverter.class)
+    private PaymentType paymentType;
+    @Column(nullable = false)
+    @Convert(converter = PaymentMethodConverter.class)
+    private PaymentMethod paymentMethod;
+
     @OneToOne(mappedBy = "billingInfo")
     private OrderEntity order;
-
-    @ManyToOne
-    @JoinColumn(name = "payment_id")
-    private PaymentEntity payment;
 }

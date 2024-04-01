@@ -1,6 +1,6 @@
 package edu.icet.trendify.entity.user;
 
-import edu.icet.trendify.util.converters.RoleConverter;
+import edu.icet.trendify.util.converter.RoleConverter;
 import edu.icet.trendify.util.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "admin")
-public class AdminEntity extends UserEntity{
+public class AdminEntity extends User {
     @Convert(converter = RoleConverter.class)
     @Column(nullable = false)
     private Role role;
