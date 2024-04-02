@@ -7,9 +7,11 @@ import edu.icet.trendify.util.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * DTO for {@link edu.icet.trendify.entity.user.AdminEntity}
@@ -29,8 +31,10 @@ public record AdminDto(
         @Pattern(regexp = RegexPattern.PASSWORD, message = ValidationInfo.PASSWORD_PATTERN)
         String password,
         @NotNull(message = "Role should not be empty")
-        Role role,
+        @Size(min = 1, message = "Role should have at least one role")
+        List<Role> role,
         @NotNull(message = "Contact should not be empty")
-        String contact
-) implements Serializable {
+        String contact,
+        @NotNull(message = "isActive should not be empty")
+        Boolean isActive) implements Serializable {
 }

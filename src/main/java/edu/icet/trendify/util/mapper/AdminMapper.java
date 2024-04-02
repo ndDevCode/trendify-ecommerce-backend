@@ -4,7 +4,7 @@ import edu.icet.trendify.dto.user.AdminDto;
 import edu.icet.trendify.entity.user.AdminEntity;
 import org.mapstruct.*;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.WARN, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AdminMapper {
     AdminEntity toEntity(AdminDto adminDto);
 

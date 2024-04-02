@@ -38,6 +38,5 @@ public class OrderEntity {
     private BillingInfoEntity billingInfo;
 
     @OneToMany(mappedBy = "order")
-    @JoinColumn(nullable = false)
     private List<OrderProductEntity> orderProducts;
 }

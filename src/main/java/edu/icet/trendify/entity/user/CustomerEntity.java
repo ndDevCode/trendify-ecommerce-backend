@@ -4,6 +4,7 @@ import edu.icet.trendify.entity.order.OrderEntity;
 import edu.icet.trendify.entity.product.ProductReviewEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -21,7 +22,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "customer")
-public class CustomerEntity extends User {
+public class CustomerEntity extends UserSuper {
+    @OneToOne
+    private UserEntity user;
+
     @OneToMany(mappedBy = "customer")
     @ToString.Exclude
     private List<CartEntity> carts;

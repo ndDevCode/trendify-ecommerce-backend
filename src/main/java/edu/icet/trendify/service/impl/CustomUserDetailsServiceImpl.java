@@ -1,10 +1,9 @@
 package edu.icet.trendify.service.impl;
 
-import edu.icet.asianpearl.entity.UserEntity;
-import edu.icet.asianpearl.entity.util.Role;
-import edu.icet.asianpearl.entity.util.UserStatus;
-import edu.icet.asianpearl.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.icet.trendify.entity.user.RoleEntity;
+import edu.icet.trendify.entity.user.UserEntity;
+import edu.icet.trendify.repository.user.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -13,35 +12,31 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    @Autowired
-    public CustomUserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity user = null;
-        user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        if(user!=null && user.getUserStatus() == UserStatus.INACTIVE){
+
+        UserEntity user = userRepository
+                            .findByEmail(email)
+                            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if(user==null || !user.getIsActive()){
             throw new UsernameNotFoundException("User not found");
         }
 
-        List<Role> roles = new ArrayList<>();
-        roles.add(user.getRole());
-        return new User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(roles));
+        return new User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRole()));
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
+    private Collection<GrantedAuthority> mapRolesToAuthorities(List<RoleEntity> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole().name())).collect(Collectors.toList());
     }
 }

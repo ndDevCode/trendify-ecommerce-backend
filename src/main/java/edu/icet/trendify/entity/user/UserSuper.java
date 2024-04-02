@@ -14,15 +14,12 @@ import java.util.Objects;
 @ToString
 @SuperBuilder
 @MappedSuperclass
-public class User {
+public class UserSuper {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
-    private String email;
-    private String password;
-    private Boolean isActive;
 
     @Override
     public boolean equals(Object o) {
@@ -31,7 +28,7 @@ public class User {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        User that = (User) o;
+        UserSuper that = (UserSuper) o;
         return getId() != null && Objects.equals(getId(), that.getId());
     }
 

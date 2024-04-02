@@ -26,6 +26,6 @@ public record CustomerDto(
         String email,
         @NotNull(message = "Password should not be empty")
         @Pattern(regexp = RegexPattern.PASSWORD, message = ValidationInfo.PASSWORD_PATTERN)
-        String password
-) implements Serializable {
+        String password,
+        Boolean isActive) implements Serializable {
 }
