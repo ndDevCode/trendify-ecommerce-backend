@@ -24,12 +24,13 @@ public class UserEntity {
     @Column(nullable = false)
     private Boolean isActive;
 
-    @ManyToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    private List<RoleEntity> role;
-
     @OneToOne(mappedBy = "user")
     private CustomerEntity customer;
 
     @OneToOne(mappedBy = "user",fetch = FetchType.EAGER)
     private AdminEntity admin;
+
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    private List<UserRoleEntity> userRole;
 }

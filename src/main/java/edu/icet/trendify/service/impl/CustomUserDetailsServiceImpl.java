@@ -2,6 +2,7 @@ package edu.icet.trendify.service.impl;
 
 import edu.icet.trendify.entity.user.RoleEntity;
 import edu.icet.trendify.entity.user.UserEntity;
+import edu.icet.trendify.entity.user.UserRoleEntity;
 import edu.icet.trendify.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,10 +34,13 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        return new User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRole()));
+        return new User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getUserRole()));
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(List<RoleEntity> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole().name())).collect(Collectors.toList());
+    private Collection<GrantedAuthority> mapRolesToAuthorities(List<UserRoleEntity> roles) {
+        return roles
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRole().getRole().name()))
+                .collect(Collectors.toList());
     }
 }

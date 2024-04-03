@@ -34,6 +34,7 @@ public record AdminDto(
         @Size(min = 1, message = "Role should have at least one role")
         List<Role> role,
         @NotNull(message = "Contact should not be empty")
+        @Pattern(regexp = RegexPattern.PHONE_NUMBER, message = ValidationInfo.PHONE_NUMBER_PATTERN)
         String contact,
         @NotNull(message = "isActive should not be empty")
         Boolean isActive) implements Serializable {
