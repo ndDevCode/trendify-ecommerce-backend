@@ -1,18 +1,10 @@
 package edu.icet.trendify.service.impl;
 
 import edu.icet.trendify.dto.ResponseDto;
-import edu.icet.trendify.dto.user.AdminDto;
-import edu.icet.trendify.dto.user.AuthResponseDto;
-import edu.icet.trendify.dto.user.LoginDto;
-import edu.icet.trendify.dto.user.RoleDto;
-import edu.icet.trendify.entity.user.AdminEntity;
-import edu.icet.trendify.entity.user.RoleEntity;
-import edu.icet.trendify.entity.user.UserEntity;
-import edu.icet.trendify.entity.user.UserRoleEntity;
-import edu.icet.trendify.repository.user.AdminRepository;
-import edu.icet.trendify.repository.user.RoleRepository;
-import edu.icet.trendify.repository.user.UserRepository;
-import edu.icet.trendify.repository.user.UserRoleRepository;
+import edu.icet.trendify.dto.user.*;
+import edu.icet.trendify.entity.user.*;
+import edu.icet.trendify.repository.user.*;
+import edu.icet.trendify.security.JWTGenerator;
 import edu.icet.trendify.service.AdminService;
 import edu.icet.trendify.util.enums.Role;
 import edu.icet.trendify.util.mapper.AdminMapper;
@@ -21,6 +13,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,10 +30,13 @@ import java.util.Optional;
 public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
-    private final AdminMapper adminMapper;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
+
+    private final AdminMapper adminMapper;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Transactional
     @Override
@@ -53,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
             // Create UserEntity
             UserEntity userEntity = UserEntity.builder()
                     .email(adminDto.email())
-                    .password(adminDto.password())
+                    .password(passwordEncoder.encode(adminDto.password()))
                     .isActive(adminDto.isActive())
                     .build();
 
@@ -66,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
             // Add UserEntity to RoleEntities
             savedUser.setUserRole(roleList
                     .stream()
-                    .map(role -> new UserRoleEntity(savedUser.getId(), role.getId(),role,savedUser))
+                    .map(role -> new UserRoleEntity(savedUser.getId(), role.getId(), role, savedUser))
                     .toList()
             );
             roleList.forEach(
@@ -91,12 +91,6 @@ public class AdminServiceImpl implements AdminService {
     protected boolean isAdminExist(AdminDto adminDto) {
         return userRepository.findByEmail(adminDto.email()).isPresent() ||
                 adminRepository.findByContact(adminDto.contact()).isPresent();
-    }
-
-    @Override
-    @Transactional
-    public ResponseEntity<ResponseDto<AuthResponseDto>> authenticateAdminLogin(LoginDto loginDto) {
-        return null;
     }
 
     @Override
@@ -159,7 +153,6 @@ public class AdminServiceImpl implements AdminService {
             UserEntity userEntity = userRepository.findById(adminDto.id()).orElse(null);
             assert userEntity != null;
             userEntity.setEmail(adminDto.email());
-            userEntity.setPassword(adminDto.password());
             userEntity.setIsActive(adminDto.isActive());
 
             // Update AdminEntity
@@ -214,8 +207,7 @@ public class AdminServiceImpl implements AdminService {
 
             updatedRole.forEach(role -> {
                 if (!userRoleRepository.existsByUserIdAndRoleId
-                        (roleDto.userId(), roleRepository.findByRole(role).getId()))
-                {
+                        (roleDto.userId(), roleRepository.findByRole(role).getId())) {
                     userRoleRepository.saveUserRole(roleDto.userId(), roleRepository.findByRole(role).getId());
                 }
             });

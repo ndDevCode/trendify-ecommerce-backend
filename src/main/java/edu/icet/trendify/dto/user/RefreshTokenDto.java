@@ -1,16 +1,14 @@
 package edu.icet.trendify.dto.user;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class AuthResponseDto {
-    private String accessToken;
+@NoArgsConstructor
+public class RefreshTokenDto {
+    @NotEmpty(message = "RefreshToken should not be empty")
     private String refreshToken;
-    private String tokenType = "Bearer ";
 }

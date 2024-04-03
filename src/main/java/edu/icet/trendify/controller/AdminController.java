@@ -1,14 +1,14 @@
 package edu.icet.trendify.controller;
 
 import edu.icet.trendify.dto.ResponseDto;
-import edu.icet.trendify.dto.user.AdminDto;
-import edu.icet.trendify.dto.user.RoleDto;
+import edu.icet.trendify.dto.user.*;
 import edu.icet.trendify.exception.UserNotFoundException;
 import edu.icet.trendify.service.AdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -75,6 +75,12 @@ public class AdminController {
                 ResponseDto.success(adminDto, "Admins fetched successfully!"),
                 HttpStatus.OK
         );
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("test")
+    public String test() {
+        return "test";
     }
 
 }

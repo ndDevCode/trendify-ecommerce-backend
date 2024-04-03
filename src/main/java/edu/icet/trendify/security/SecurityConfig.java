@@ -28,22 +28,25 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+                .csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling
                         (httpSecurityExceptionHandlingConfigurer ->
                                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(authEntryPoint))
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/api/reset/**").permitAll()
+                                .requestMatchers("/api/v1/admin").permitAll()
+                                .requestMatchers("/api/v1/admin/auth").permitAll()
+                                .requestMatchers("/api/v1/admin/auth/refresh").permitAll()
+                                .requestMatchers("/api/v1/test").authenticated()
                                 .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement
                         (httpSecuritySessionManagementConfigurer ->
-                                httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                                httpSecuritySessionManagementConfigurer
+                                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
