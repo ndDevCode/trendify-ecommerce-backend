@@ -36,8 +36,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers("/api/v1/admin").permitAll()
-                                .requestMatchers("/api/v1/admin/auth").permitAll()
-                                .requestMatchers("/api/v1/admin/auth/refresh").permitAll()
+                                .requestMatchers("/api/v1/auth").permitAll()
+                                .requestMatchers("/api/v1/auth/refresh").permitAll()
                                 .requestMatchers("/api/v1/test").authenticated()
                                 .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults())
