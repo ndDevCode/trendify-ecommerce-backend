@@ -15,7 +15,7 @@ public interface ProductService {
 
     Boolean addProductReview(ProductReviewDto reviewDto);
     Boolean updateProductReview(ProductReviewDto reviewDto);
-    Optional<List<ProductReviewDto>> getProductReviewByProductId(Integer id);
-    Optional<List<ProductReviewDto>> getProductReviewByCustomerId(Long id);
-    Optional<List<ProductDto>> getProductByRating(Short rating);
+    List<ProductReviewDto> getProductReviewByProductId(Long id);
+    List<ProductReviewDto> getProductReviewByCustomerId(Long id);
+    List<ProductDto> getProductByRating(Short rating);
 }
