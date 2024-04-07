@@ -4,7 +4,6 @@ import edu.icet.trendify.dto.ResponseDto;
 import edu.icet.trendify.dto.user.*;
 import edu.icet.trendify.entity.user.*;
 import edu.icet.trendify.repository.user.*;
-import edu.icet.trendify.security.JWTGenerator;
 import edu.icet.trendify.service.AdminService;
 import edu.icet.trendify.util.enums.Role;
 import edu.icet.trendify.util.mapper.AdminMapper;
@@ -13,10 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,12 +64,13 @@ public class AdminServiceImpl implements AdminService {
                     .map(role -> new UserRoleEntity(savedUser.getId(), role.getId(), role, savedUser))
                     .toList()
             );
+
             roleList.forEach(
                     roleEntity -> userRoleRepository.saveUserRole(savedUser.getId(), roleEntity.getId())
             );
 
             // Save AdminEntity and get ResponseDto
-            AdminDto responseAdminDto = getResponseAdminDto(adminEntity, savedUser, userEntity);
+            AdminDto responseAdminDto = getResponseAdminDto(adminEntity, savedUser);
 
             return new ResponseEntity<>(
                     ResponseDto.success(responseAdminDto, "Admin created successfully!"),
@@ -166,7 +162,7 @@ public class AdminServiceImpl implements AdminService {
             UserEntity savedUser = userRepository.save(userEntity);
 
             // Save AdminEntity and get ResponseDto
-            AdminDto responseAdminDto = getResponseAdminDto(adminEntity, savedUser, userEntity);
+            AdminDto responseAdminDto = getResponseAdminDto(adminEntity, savedUser);
 
             return new ResponseEntity<>(
                     ResponseDto.success(responseAdminDto, "Admin updated successfully!"),
@@ -180,7 +176,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Transactional
-    protected AdminDto getResponseAdminDto(AdminEntity adminEntity, UserEntity savedUser, UserEntity userEntity) {
+    protected AdminDto getResponseAdminDto(AdminEntity adminEntity, UserEntity savedUser) {
         adminEntity.setUser(savedUser);
         AdminEntity savedAdminEntity = adminRepository.save(adminEntity);
 
@@ -192,7 +188,7 @@ public class AdminServiceImpl implements AdminService {
                 .lastName(savedAdminEntity.getLastName())
                 .contact(savedAdminEntity.getContact())
                 .role(savedUser.getUserRole().stream().map(role -> role.getRole().getRole()).toList())
-                .isActive(userEntity.getIsActive())
+                .isActive(savedUser.getIsActive())
                 .build();
     }
 

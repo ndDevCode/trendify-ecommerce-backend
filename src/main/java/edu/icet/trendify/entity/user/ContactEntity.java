@@ -23,5 +23,4 @@ public class ContactEntity {
     @MapsId("cusId")
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
-
 }

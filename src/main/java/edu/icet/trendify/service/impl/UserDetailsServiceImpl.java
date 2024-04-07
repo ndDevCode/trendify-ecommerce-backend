@@ -1,6 +1,5 @@
 package edu.icet.trendify.service.impl;
 
-import edu.icet.trendify.entity.user.RoleEntity;
 import edu.icet.trendify.entity.user.UserEntity;
 import edu.icet.trendify.entity.user.UserRoleEntity;
 import edu.icet.trendify.repository.user.UserRepository;
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 

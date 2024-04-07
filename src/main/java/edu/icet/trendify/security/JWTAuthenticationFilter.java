@@ -1,5 +1,6 @@
 package edu.icet.trendify.security;
 
+import edu.icet.trendify.repository.user.JwtTokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import java.io.IOException;
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final JWTGenerator tokenGenerator;
+    private final JwtTokenRepository jwtTokenRepository;
     private final UserDetailsService customUserDetailsService;
 
     @Override
@@ -32,8 +34,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         String token = getJWTFromRequest(request);
 
-
-        if (StringUtils.hasText(token) && tokenGenerator.validateToken(token)) {
+        if (StringUtils.hasText(token) && tokenGenerator.validateToken(token) &&
+                jwtTokenRepository.existsByTokenAndIsExpiredFalse(token)
+        ) {
             String username = tokenGenerator.getUsernameFromJWT(token);
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,

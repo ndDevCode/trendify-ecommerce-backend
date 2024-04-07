@@ -3,13 +3,12 @@ package edu.icet.trendify.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 @Data
 @AllArgsConstructor
 @Builder
 public class ResponseDto<T> {
-    private Boolean status;
+    private Boolean isSuccess;
     private String message;
     private T data;
 
@@ -19,7 +18,7 @@ public class ResponseDto<T> {
     public static <T> ResponseDto<T> success(T data, String message){
         String defaultMessage = "SUCCESS!";
         return ResponseDto.<T>builder()
-                .status(true)
+                .isSuccess(true)
                 .message(message == null ? defaultMessage : message)
                 .data(data)
                 .build();
@@ -27,7 +26,7 @@ public class ResponseDto<T> {
     public static <T> ResponseDto<T> error(String message){
         String defaultMessage = "ERROR!";
         return ResponseDto.<T>builder()
-                .status(false)
+                .isSuccess(false)
                 .message(message == null ? defaultMessage : message)
                 .build();
     }

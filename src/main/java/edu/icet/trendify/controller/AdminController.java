@@ -77,6 +77,7 @@ public class AdminController {
         );
     }
 
+    // TODO: remove this method (this method is for testing)
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("test")
     public String test() {

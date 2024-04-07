@@ -3,16 +3,16 @@ package edu.icet.trendify.service;
 import edu.icet.trendify.dto.user.*;
 import edu.icet.trendify.dto.ResponseDto;
 import org.springframework.aop.target.LazyInitTargetSource;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    ResponseDto<CustomerDto> registerCustomer(CustomerDto customerDto);
-    ResponseDto<AuthResponseDto> authenticateCustomerLogin(LoginDto loginDto);
+    ResponseEntity<ResponseDto<CustomerDto>> registerCustomer(CustomerDto customerDto);
     Optional<CustomerDto> getCustomerByEmail(String email);
     Optional<CustomerDto> getCustomerById(Long id);
-    ResponseDto<CustomerDto> updateCustomer(CustomerDto customerDto);
+    ResponseEntity<ResponseDto<CustomerDto>> updateCustomer(CustomerDto customerDto);
     List<CustomerDto> getAllCustomer();
 
     Boolean addCustomerContact(ContactDto contactDto);
