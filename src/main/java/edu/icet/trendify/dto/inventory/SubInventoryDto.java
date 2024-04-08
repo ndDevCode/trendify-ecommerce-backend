@@ -1,7 +1,7 @@
 package edu.icet.trendify.dto.inventory;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 
@@ -10,15 +10,15 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record SubInventoryDto(
-        @NotNull(message = "Inventory Id should not be empty")
+        @NotEmpty(message = "Inventory Id should not be empty")
         Long inventoryId,
-        @NotNull(message = "Color Id should not be empty")
+        @NotEmpty(message = "Color Id should not be empty")
         Integer colorId,
-        @NotNull(message = "Size Id should not be empty")
+        @NotEmpty(message = "Size Id should not be empty")
         Integer sizeId,
-        @NotNull(message = "Quantity should not be empty")
+        @NotEmpty(message = "Quantity should not be empty")
         Integer quantity,
-        @NotNull(message = "Is Sold Out Value should not be empty")
+        @NotEmpty(message = "Is Sold Out Value should not be empty")
         Boolean isSoldOut
 
 ) implements Serializable {

@@ -9,13 +9,13 @@ import edu.icet.trendify.repository.product.ProductReviewRepository;
 import edu.icet.trendify.service.ProductService;
 import edu.icet.trendify.util.mapper.ProductMapper;
 import edu.icet.trendify.util.mapper.ProductReviewMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final ProductReviewMapper productReviewMapper;
 
+    @Transactional
     @Override
     public ResponseDto<ProductDto> saveProduct(ProductDto productDto) {
         try{
@@ -42,6 +43,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Transactional
     @Override
     public ResponseDto<ProductDto> updateProduct(ProductDto productDto) {
         try{
@@ -70,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Boolean addProductReview(ProductReviewDto reviewDto) {
         try{
             productReviewRepository.save(productReviewMapper.toEntity(reviewDto));
@@ -81,6 +84,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Boolean updateProductReview(ProductReviewDto reviewDto) {
         try {
             if(!productReviewRepository.existsByProductIdAndCusId(reviewDto.productId(), reviewDto.cusId())){
@@ -95,12 +99,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductReviewDto> getProductReviewByProductId(Long id) {
+    public List<ProductReviewDto> getProductReviewByProductId(Integer id) {
         return productReviewRepository
                 .findByProductId(id)
                 .stream()
                 .map(productReviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -109,7 +113,7 @@ public class ProductServiceImpl implements ProductService {
                 .findByCusId(id)
                 .stream()
                 .map(productReviewMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

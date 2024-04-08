@@ -14,4 +14,6 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer>, JpaSpecificationExecutor<ProductEntity> {
     @Query(value = "SELECT * FROM product INNER JOIN product_review ON product.id = product_review.product WHERE product_review.rating = :rating", nativeQuery = true)
     List<ProductEntity> findByRating(@Param("rating") Short rating);
+
+    List<ProductEntity> findByProductCollectionList_CollectionId(Integer collectionId);
 }

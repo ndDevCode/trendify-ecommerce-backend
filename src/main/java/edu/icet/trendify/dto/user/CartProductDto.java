@@ -1,7 +1,7 @@
 package edu.icet.trendify.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 
 import java.io.Serializable;
@@ -12,11 +12,11 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 public record CartProductDto(
-        @NotNull(message = "Product Id should not be empty")
+        @NotEmpty(message = "Product Id should not be empty")
         Long productId,
-        @NotNull(message = "Quantity should not be empty")
+        @NotEmpty(message = "Quantity should not be empty")
         Integer quantity,
-        @NotNull(message = "Color Id should not be empty")
+        @NotEmpty(message = "Color Id should not be empty")
         Integer colorId
 ) implements Serializable {
 }

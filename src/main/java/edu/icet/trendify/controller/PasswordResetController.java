@@ -1,12 +1,12 @@
 package edu.icet.trendify.controller;
 
 import edu.icet.trendify.dto.ResponseDto;
+import edu.icet.trendify.dto.user.PasswordResetDto;
 import edu.icet.trendify.service.PasswordResetService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/password-reset")
@@ -20,7 +20,7 @@ public class PasswordResetController {
         return passwordResetService.sendPasswordResetEmail(email);
     }
     @PostMapping("/reset")
-    public ResponseEntity<ResponseDto<String>> resetPassword(@RequestBody Map<String, String> resetData) {
-        return passwordResetService.resetPassword(resetData);
+    public ResponseEntity<ResponseDto<String>> resetPassword(@RequestBody @Valid PasswordResetDto resetDto) {
+        return passwordResetService.resetPassword(resetDto);
     }
 }

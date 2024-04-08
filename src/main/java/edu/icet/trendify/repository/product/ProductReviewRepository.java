@@ -14,7 +14,7 @@ public interface ProductReviewRepository extends JpaRepository<ProductReviewEnti
 
     List<ProductReviewEntity> findByCusId(Long cusId);
 
-    List<ProductReviewEntity> findByProductId(Long productId);
+    List<ProductReviewEntity> findByProductId(Integer productId);
 
     List<ProductReviewEntity> findByRating(Short rating);
 }

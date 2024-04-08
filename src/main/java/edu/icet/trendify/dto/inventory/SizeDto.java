@@ -1,7 +1,7 @@
 package edu.icet.trendify.dto.inventory;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record SizeDto(
         Integer id,
-        @NotNull(message = "Size should not be empty")
+        @NotEmpty(message = "Size should not be empty")
         String size
 ) implements Serializable {
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 
@@ -13,16 +13,16 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ProductReviewDto(
-        @NotNull(message = "Customer Id should not be empty")
+        @NotEmpty(message = "Customer Id should not be empty")
         Long cusId,
-        @NotNull(message = "Product Id should not be empty")
+        @NotEmpty(message = "Product Id should not be empty")
         Long productId,
-        @NotNull(message = "Review should not be empty")
+        @NotEmpty(message = "Review should not be empty")
         String review,
-        @NotNull(message = "Rating Id should not be empty")
+        @NotEmpty(message = "Rating Id should not be empty")
         @Digits(message = "Invalid Format", integer = 1,fraction = 0)
-        @DecimalMin(value = "1")
-        @DecimalMax(value = "5")
+        @DecimalMin(value = "1", message = "Rating should be between 1 and 5")
+        @DecimalMax(value = "5", message = "Rating should be between 1 and 5")
         Short rating
 ) implements Serializable {
 }

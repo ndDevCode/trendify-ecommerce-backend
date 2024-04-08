@@ -1,6 +1,7 @@
 package edu.icet.trendify.service.impl;
 
 import edu.icet.trendify.dto.ResponseDto;
+import edu.icet.trendify.dto.user.PasswordResetDto;
 import edu.icet.trendify.entity.user.PasswordResetTokenEntity;
 import edu.icet.trendify.entity.user.UserEntity;
 import edu.icet.trendify.repository.user.PasswordResetTokenRepository;
@@ -14,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -58,11 +58,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
 
     @Override
-    public ResponseEntity<ResponseDto<String>> resetPassword(Map<String, String> resetData) {
-        String token = resetData.get("token");
-        String newPassword = resetData.get("password");
+    public ResponseEntity<ResponseDto<String>> resetPassword(PasswordResetDto resetDto) {
 
-        PasswordResetTokenEntity resetToken = findByToken(token);
+        PasswordResetTokenEntity resetToken = findByToken(resetDto.token());
 
         if (resetToken == null || resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
             deleteToken(resetToken);
@@ -72,7 +70,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         }
 
         UserEntity user = resetToken.getUser();
-        userService.updatePassword(user.getEmail(), passwordEncoder.encode(newPassword));
+        userService.updatePassword(user.getEmail(), passwordEncoder.encode(resetDto.password()));
         deleteToken(resetToken);
 
         return new ResponseEntity<>(

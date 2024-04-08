@@ -1,7 +1,7 @@
 package edu.icet.trendify.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 
@@ -10,9 +10,9 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ContactDto(
-        @NotNull(message = "Contact should not be empty")
+        @NotEmpty(message = "Contact should not be empty")
         String contact,
-        @NotNull(message = "Customer Id should not be empty")
+        @NotEmpty(message = "Customer Id should not be empty")
         Long cusId
 ) implements Serializable {
 }
