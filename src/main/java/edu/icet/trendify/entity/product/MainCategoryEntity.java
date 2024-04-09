@@ -20,6 +20,8 @@ public class MainCategoryEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "mainCategoryList")
+    @ManyToMany(fetch = FetchType.EAGER,
+            mappedBy = "mainCategoryList",
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     List<SubCategoryEntity> subCategoryList;
 }

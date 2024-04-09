@@ -22,6 +22,8 @@ public record BillingInfoDto(
         @NotEmpty(message = "Payment Type should not be empty")
         PaymentType paymentType,
         @NotEmpty(message = "Payment Method should not be empty")
-        PaymentMethod paymentMethod
+        PaymentMethod paymentMethod,
+        @NotEmpty(message = "Order Id should not be empty")
+        Long orderId
 ) implements Serializable {
 }

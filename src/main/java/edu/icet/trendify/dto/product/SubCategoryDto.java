@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * DTO for {@link edu.icet.trendify.entity.product.SubCategoryEntity}
@@ -12,6 +13,7 @@ import java.io.Serializable;
 public record SubCategoryDto(
         Integer id,
         @NotEmpty(message = "Name should not be empty")
-        String name
+        String name,
+        List<MainCategoryDto> mainCategoryList
 ) implements Serializable {
 }

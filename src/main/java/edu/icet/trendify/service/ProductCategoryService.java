@@ -15,6 +15,10 @@ public interface ProductCategoryService {
 
     List<MainCategoryDto> getAllMainCategory();
     List<SubCategoryDto> getAllSubcategory();
-    Optional<List<SubCategoryDto>> getSubCategoryByMainCategory(Integer id);
-    Optional<List<MainCategoryDto>> getMainCategoryBySubCategory(Integer id);
+    List<SubCategoryDto> getSubCategoryByMainCategory(Integer id);
+    List<MainCategoryDto> getMainCategoryBySubCategory(Integer id);
+    Boolean removeSubCategoriesFromMainCategory(Integer subCategoryId,Integer mainCategoryId);
+    Boolean removeMainCategory(Integer id);
+    Boolean removeSubCategory(Integer id);
+    Boolean addSubCategoriesToMainCategory(Integer id, List<Integer> subCategoryIds);
 }

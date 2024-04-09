@@ -20,11 +20,13 @@ public class SubCategoryEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "main_sub_category",
             joinColumns = @JoinColumn(name = "sub_category_id",nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "main_category_id",nullable = false))
+            inverseJoinColumns = @JoinColumn(name = "main_category_id",nullable = false),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"sub_category_id", "main_category_id"}))
     List<MainCategoryEntity> mainCategoryList;
 }
 

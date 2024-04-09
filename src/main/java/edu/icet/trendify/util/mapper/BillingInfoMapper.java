@@ -6,8 +6,10 @@ import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface BillingInfoMapper {
+    @Mapping(source = "orderId", target = "order.id")
     BillingInfoEntity toEntity(BillingInfoDto billingInfoDto);
 
+    @Mapping(source = "order.id", target = "orderId")
     BillingInfoDto toDto(BillingInfoEntity billingInfoEntity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
