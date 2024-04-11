@@ -22,14 +22,16 @@ public class ProductCollectionController {
     public ResponseEntity<ResponseDto<CollectionDto>> createCollection(@RequestBody CollectionDto collectionDto) {
         ResponseDto<CollectionDto> collection = productCollectionService.createCollection(collectionDto);
         return Boolean.TRUE.equals(collection.getIsSuccess()) ?
-                    ResponseEntity.ok(collection) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(collection);
+                    ResponseEntity.ok(collection) :
+                    ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(collection);
     }
 
     @PutMapping("")
     public ResponseEntity<ResponseDto<CollectionDto>> updateCollection(@RequestBody CollectionDto collectionDto) {
         ResponseDto<CollectionDto> collection = productCollectionService.updateCollection(collectionDto);
         return Boolean.TRUE.equals(collection.getIsSuccess()) ?
-                    ResponseEntity.ok(collection) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(collection);
+                    ResponseEntity.ok(collection) :
+                    ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(collection);
     }
 
     @GetMapping("")

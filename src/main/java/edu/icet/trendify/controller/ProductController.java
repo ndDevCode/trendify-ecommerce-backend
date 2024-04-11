@@ -24,7 +24,7 @@ public class ProductController {
         ResponseDto<ProductDto> productDtoResponseDto = productService.saveProduct(productDto);
         return Boolean.TRUE.equals(productDtoResponseDto.getIsSuccess()) ?
                 ResponseEntity.status(HttpStatus.CREATED).body(productDtoResponseDto) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).body(productDtoResponseDto);
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(productDtoResponseDto);
     }
 
     @PutMapping("")
@@ -32,7 +32,7 @@ public class ProductController {
         ResponseDto<ProductDto> productDtoResponseDto = productService.updateProduct(productDto);
         return Boolean.TRUE.equals(productDtoResponseDto.getIsSuccess()) ?
                 ResponseEntity.ok(productDtoResponseDto) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).body(productDtoResponseDto);
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(productDtoResponseDto);
     }
 
     @GetMapping("/{product-id}")
@@ -71,7 +71,7 @@ public class ProductController {
                     .body(ResponseDto.success(true, "Review updated successfully!"));
         }
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ResponseDto.error("Failed to update review!"));
     }
 

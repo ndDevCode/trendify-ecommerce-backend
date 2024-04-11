@@ -18,12 +18,14 @@ public class OrderProductEntity {
     @Id
     private Long orderId;
     @Id
-    private Long productId;
+    private Integer productId;
 
     @Column(nullable = false)
     private Integer quantity;
     @Column(nullable = false)
     private String colorId;
+    @Column(nullable = false)
+    private Double price;
 
     @ManyToOne
     @MapsId("orderId")

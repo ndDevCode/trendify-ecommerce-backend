@@ -24,7 +24,7 @@ public class ProductCategoryController {
         if(Boolean.TRUE.equals(mainCategory.getIsSuccess())){
             return ResponseEntity.status(HttpStatus.CREATED).body(mainCategory);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mainCategory);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mainCategory);
     }
 
     @PutMapping("/main")
@@ -33,7 +33,7 @@ public class ProductCategoryController {
         if(Boolean.TRUE.equals(mainCategory.getIsSuccess())){
             return ResponseEntity.status(HttpStatus.OK).body(mainCategory);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mainCategory);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mainCategory);
     }
 
     @PostMapping("/sub")
@@ -42,7 +42,7 @@ public class ProductCategoryController {
         if(Boolean.TRUE.equals(subCategory.getIsSuccess())){
             return ResponseEntity.status(HttpStatus.CREATED).body(subCategory);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(subCategory);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(subCategory);
     }
 
     @PutMapping("/sub")
@@ -51,7 +51,7 @@ public class ProductCategoryController {
         if(Boolean.TRUE.equals(subCategory.getIsSuccess())){
             return ResponseEntity.status(HttpStatus.OK).body(subCategory);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(subCategory);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(subCategory);
     }
 
     @GetMapping("/main")
@@ -105,7 +105,7 @@ public class ProductCategoryController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(ResponseDto.success(null, "Main category deleted successfully!"));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ResponseDto.error("Main category not found by id: " + id));
     }
 
@@ -116,24 +116,24 @@ public class ProductCategoryController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(ResponseDto.success(subCategory, "Sub category deleted successfully!"));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ResponseDto.error("Sub category not found by id: " + id));
     }
 
     @PostMapping("/main/{id}")
     public ResponseEntity<ResponseDto<Boolean>> addSubCategoriesToMainCategory(
-            @PathVariable Integer id, @RequestBody List<Integer> subCategoryIds
+            @PathVariable(value = "id" ) Integer mainCategoryId, @RequestBody List<Integer> subCategoryIds
     ) {
-        Boolean mainCategory = productCategoryService.addSubCategoriesToMainCategory(id, subCategoryIds);
+        Boolean mainCategory = productCategoryService.addSubCategoriesToMainCategory(mainCategoryId, subCategoryIds);
         if(Boolean.TRUE.equals(mainCategory)){
             return ResponseEntity.status(HttpStatus.OK)
                     .body(ResponseDto.success(
-                            mainCategory,
+                            null,
                             "Sub categories added to main category successfully!"
                     ));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ResponseDto.error("Main category not found by id: " + id));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ResponseDto.error("Main category not found by Id: " + mainCategoryId));
     }
 
     @DeleteMapping("/main/sub")
@@ -145,11 +145,11 @@ public class ProductCategoryController {
         if(Boolean.TRUE.equals(mainCategory)){
             return ResponseEntity.status(HttpStatus.OK)
                     .body(ResponseDto.success(
-                            mainCategory,
+                            null,
                             "Sub categories removed from main category successfully!"
                     ));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ResponseDto.error("Main category not found by id: " + mainCategoryId));
     }
 }

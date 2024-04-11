@@ -9,5 +9,5 @@ public interface CartService {
     ResponseDto<CartDto> saveCart(CartDto cartDto);
     ResponseDto<CartDto> updateCart(CartDto cartDto);
     Boolean deleteCart(Long id);
-    List<CartDto> getAllSavedCart();
+    List<CartDto> getAllSavedCartByCustomerId(Long customerId);
 }

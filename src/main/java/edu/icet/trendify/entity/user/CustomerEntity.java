@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
+import org.mapstruct.Named;
 
 import java.util.List;
 import java.util.Objects;

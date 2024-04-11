@@ -11,5 +11,5 @@ public interface OrderService {
     ResponseDto<OrderDto> placeOrder(OrderDto orderDto);
     ResponseDto<OrderDto> updateOrderStatus(Long orderId, OrderStatus orderStatus);
     List<OrderDto> getAllOrder();
-    Optional<List<OrderDto>> getOrderByCustomerId(Long id);
+    List<OrderDto> getOrderByCustomerId(Long id);
 }

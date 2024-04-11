@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/billing-info")
+@RequestMapping("/billing-infos")
 @RequiredArgsConstructor
 public class BillingInfoController {
     private final BillingInfoService billingInfoService;

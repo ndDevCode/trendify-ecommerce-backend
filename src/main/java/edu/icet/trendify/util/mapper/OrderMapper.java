@@ -8,6 +8,7 @@ import org.mapstruct.*;
 public interface OrderMapper {
     OrderEntity toEntity(OrderDto orderDto);
 
+    @Mapping(source = "customer.id", target = "customerId")
     OrderDto toDto(OrderEntity orderEntity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

@@ -11,5 +11,5 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class OrderProductId implements Serializable {
     private Long orderId;
-    private Long productId;
+    private Integer productId;
 }

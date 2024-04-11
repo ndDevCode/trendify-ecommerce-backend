@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+@Builder
 
 @Entity
 @Table(name = "cart")
@@ -20,6 +21,7 @@ public class CartEntity {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @ToString.Exclude
     private CustomerEntity customer;
 
     @OneToMany(mappedBy = "cart")
