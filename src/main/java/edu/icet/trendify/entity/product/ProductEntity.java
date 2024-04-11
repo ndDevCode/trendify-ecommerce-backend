@@ -1,5 +1,6 @@
 package edu.icet.trendify.entity.product;
 
+import edu.icet.trendify.entity.inventory.InventoryEntity;
 import edu.icet.trendify.entity.user.CartProductEntity;
 import edu.icet.trendify.entity.order.OrderProductEntity;
 import jakarta.persistence.*;
@@ -40,4 +41,7 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product")
     @ToString.Exclude
     private List<ProductCollectionEntity> productCollectionList;
+
+    @OneToMany(mappedBy = "product")
+    private List<InventoryEntity> inventoryEntities;
 }

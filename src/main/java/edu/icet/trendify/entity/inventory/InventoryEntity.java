@@ -1,5 +1,6 @@
 package edu.icet.trendify.entity.inventory;
 
+import edu.icet.trendify.entity.product.ProductEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +33,15 @@ public class InventoryEntity {
     private Boolean isReleased;
     private String remarks;
 
-    @OneToMany(mappedBy = "inventory")
+
+    @OneToMany(
+            mappedBy = "inventory",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}
+    )
+    @ToString.Exclude
     private List<SubInventoryEntity> subInventory;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    private ProductEntity product;
 }

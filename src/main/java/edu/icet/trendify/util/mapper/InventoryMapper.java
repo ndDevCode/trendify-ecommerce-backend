@@ -6,8 +6,10 @@ import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface InventoryMapper {
+    @Mapping(source = "productId", target = "product.id")
     InventoryEntity toEntity(InventoryDto inventoryDto);
 
+    @Mapping(source = "product.id", target = "productId")
     InventoryDto toDto(InventoryEntity inventoryEntity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

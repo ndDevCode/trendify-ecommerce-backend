@@ -21,5 +21,6 @@ public class SizeEntity {
     private String size;
 
     @OneToMany(mappedBy = "size")
+    @ToString.Exclude
     private List<SubInventoryEntity> subInventory;
 }

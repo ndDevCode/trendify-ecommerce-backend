@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer>, JpaSpecificationExecutor<ProductEntity> {
@@ -16,4 +17,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     List<ProductEntity> findByRating(@Param("rating") Short rating);
 
     List<ProductEntity> findByProductCollectionList_CollectionId(Integer collectionId);
+
+    Optional<ProductEntity> findByName(String name);
 }

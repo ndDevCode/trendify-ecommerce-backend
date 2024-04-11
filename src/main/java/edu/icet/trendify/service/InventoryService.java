@@ -16,6 +16,6 @@ public interface InventoryService {
     Boolean updateReOrderLevel(Long inventoryId, Integer reorderLevel);
     List<InventoryDto> getAllInventory();
     Optional<InventoryDto> getInventoryById(Long id);
-    ResponseDto<SubInventoryDto> getSubInventoryById(SubInventoryId id);
-    ResponseDto<SubInventoryDto> updateSubInventoryById(SubInventoryId id);
+    List<SubInventoryDto> getSubInventoryById(Long inventoryId);
+    ResponseDto<SubInventoryDto> updateSubInventoryById(SubInventoryDto subInventoryDto);
 }

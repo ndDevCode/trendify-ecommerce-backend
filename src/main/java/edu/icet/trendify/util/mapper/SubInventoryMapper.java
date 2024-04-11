@@ -8,6 +8,9 @@ import org.mapstruct.*;
 public interface SubInventoryMapper {
     SubInventoryEntity toEntity(SubInventoryDto subInventoryDto);
 
+    @Mapping(source = "inventory.id", target = "inventoryId")
+    @Mapping(source = "color.id", target = "colorId")
+    @Mapping(source = "size.id", target = "sizeId")
     SubInventoryDto toDto(SubInventoryEntity subInventoryEntity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

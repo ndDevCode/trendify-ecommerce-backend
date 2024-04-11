@@ -32,6 +32,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseDto<ProductDto> saveProduct(ProductDto productDto) {
         try{
+            Optional<ProductEntity> byName = productRepository.findByName(productDto.name());
+
+            if (byName.isPresent()) {
+                return ResponseDto.error("Product already exists by name: " + productDto.name());
+            }
+
             ProductEntity savedProduct = productRepository.save(productMapper.toEntity(productDto));
             return ResponseDto.success(
                     productMapper.toDto(savedProduct),
