@@ -2,11 +2,10 @@ package edu.icet.trendify.entity.order;
 
 import edu.icet.trendify.entity.billing.BillingInfoEntity;
 import edu.icet.trendify.entity.user.CustomerEntity;
-import edu.icet.trendify.util.constant.OrderStatusConverter;
+import edu.icet.trendify.util.converter.OrderStatusConverter;
 import edu.icet.trendify.util.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import org.mapstruct.Named;
 
 import java.time.LocalDateTime;
 import java.util.List;

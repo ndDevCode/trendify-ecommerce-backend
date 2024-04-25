@@ -80,7 +80,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
     private PasswordResetTokenEntity createToken(UserEntity user) {
         String token = UUID.randomUUID().toString();
-        LocalDateTime expiryDate = LocalDateTime.now().plusHours(1);
+        LocalDateTime expiryDate = LocalDateTime.now().plusMinutes(5);
 
         PasswordResetTokenEntity tokenEntity = findByUserId(user.getId());
         if (tokenEntity != null && tokenEntity.getExpiryDate().isAfter(LocalDateTime.now())) {

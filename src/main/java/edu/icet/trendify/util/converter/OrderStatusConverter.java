@@ -1,4 +1,4 @@
-package edu.icet.trendify.util.constant;
+package edu.icet.trendify.util.converter;
 
 import edu.icet.trendify.util.enums.OrderStatus;
 import jakarta.persistence.Converter;
