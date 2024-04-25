@@ -22,17 +22,17 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("/customer")
-    public ResponseEntity<ResponseDto<CustomerDto>> registerAdmin(@RequestBody @Valid CustomerDto customerDto) {
+    public ResponseEntity<ResponseDto<CustomerDto>> registerCustomer(@RequestBody @Valid CustomerDto customerDto) {
         return customerService.registerCustomer(customerDto);
     }
 
     @PutMapping("/customer")
-    public ResponseEntity<ResponseDto<CustomerDto>> updateAdmin(@RequestBody @Valid CustomerDto customerDto) {
+    public ResponseEntity<ResponseDto<CustomerDto>> updateCustomer(@RequestBody @Valid CustomerDto customerDto) {
         return customerService.updateCustomer(customerDto);
     }
 
     @GetMapping("/customer")
-    public ResponseEntity<ResponseDto<CustomerDto>> getAdmin(
+    public ResponseEntity<ResponseDto<CustomerDto>> getCustomer(
             @RequestParam(required = false) String email,
             @RequestParam(required = false) Long id
     ) {
@@ -56,7 +56,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public ResponseEntity<ResponseDto<List<CustomerDto>>> getAllAdmins() {
+    public ResponseEntity<ResponseDto<List<CustomerDto>>> getAllCustomers() {
         List<CustomerDto> customerDto = customerService.getAllCustomer();
         return new ResponseEntity<>(
                 ResponseDto.success(customerDto, "Admins fetched successfully!"),
