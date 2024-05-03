@@ -17,6 +17,7 @@ public class CustomerAddressEntity {
     @Id
     private Long cusId;
     @Id
+    @GeneratedValue
     private Long addressId;
 
     @Column(nullable = false)

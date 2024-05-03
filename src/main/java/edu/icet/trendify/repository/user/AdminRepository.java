@@ -17,4 +17,6 @@ public interface AdminRepository extends JpaRepository<AdminEntity, Long>, JpaSp
 
     @Query(value = "SELECT admin.id,admin.first_name,admin.last_name,admin.contact,user.email,user.is_active  FROM admin INNER JOIN user ON admin.user_id = user.id", nativeQuery = true)
     List<Object> findAllAdmins();
+
+    Optional<AdminEntity> findByUser_Email(String email);
 }

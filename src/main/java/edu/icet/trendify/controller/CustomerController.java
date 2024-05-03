@@ -59,7 +59,7 @@ public class CustomerController {
     public ResponseEntity<ResponseDto<List<CustomerDto>>> getAllCustomers() {
         List<CustomerDto> customerDto = customerService.getAllCustomer();
         return new ResponseEntity<>(
-                ResponseDto.success(customerDto, "Admins fetched successfully!"),
+                ResponseDto.success(customerDto, "Customers fetched successfully!"),
                 HttpStatus.OK
         );
     }

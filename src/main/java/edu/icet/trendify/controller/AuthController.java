@@ -18,12 +18,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping()
-    public ResponseEntity<ResponseDto<AuthResponseDto>> loginUser(@RequestBody @Valid LoginDto loginDto) {
+    public ResponseEntity<ResponseDto<AuthResponseDto<?>>> loginUser(@RequestBody @Valid LoginDto loginDto) {
         return authService.authenticateUserLogin(loginDto);
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<ResponseDto<AuthResponseDto>> refreshUserToken(@RequestBody @Valid RefreshTokenDto refreshTokenDto) {
+    public ResponseEntity<ResponseDto<AuthResponseDto<?>>> refreshUserToken(@RequestBody @Valid RefreshTokenDto refreshTokenDto) {
         return authService.refreshUserToken(refreshTokenDto);
     }
 }

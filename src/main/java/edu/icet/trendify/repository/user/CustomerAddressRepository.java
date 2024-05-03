@@ -13,10 +13,10 @@ import java.util.List;
 
 @Repository
 public interface CustomerAddressRepository extends JpaRepository<CustomerAddressEntity, CustomerAddressId>, JpaSpecificationExecutor<CustomerAddressEntity> {
-    Boolean deleteByAddressId(Long id);
+    Integer deleteByAddressId(Long id);
 
     @Query(value="SELECT * FROM customer_address WHERE customer_id = :customerId", nativeQuery = true)
-    List<CustomerAddressDto> getAllAddressByCustomerId(@Param("customerId") Long id);
+    List<CustomerAddressEntity> getAllAddressByCustomerId(@Param("customerId") Long id);
 
     boolean existsByHouseNoAndStreet(String houseNo, String street);
 

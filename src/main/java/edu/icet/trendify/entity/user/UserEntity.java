@@ -34,6 +34,7 @@ public class UserEntity {
     private RefreshTokenEntity refreshToken;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<JwtTokenEntity> jwtToken;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)

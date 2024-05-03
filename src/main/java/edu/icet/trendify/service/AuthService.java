@@ -7,6 +7,6 @@ import edu.icet.trendify.dto.user.RefreshTokenDto;
 import org.springframework.http.ResponseEntity;
 
 public interface AuthService {
-    ResponseEntity<ResponseDto<AuthResponseDto>> refreshUserToken(RefreshTokenDto refreshTokenDto);
-    ResponseEntity<ResponseDto<AuthResponseDto>> authenticateUserLogin(LoginDto loginDto);
+    ResponseEntity<ResponseDto<AuthResponseDto<?>>> refreshUserToken(RefreshTokenDto refreshTokenDto);
+    ResponseEntity<ResponseDto<AuthResponseDto<?>>> authenticateUserLogin(LoginDto loginDto);
 }

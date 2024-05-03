@@ -163,7 +163,6 @@ public class CustomerServiceImpl implements CustomerService {
             UserEntity userEntity = userRepository.findById(customerDto.id()).orElse(null);
             assert userEntity != null;
             userEntity.setEmail(customerDto.email());
-            userEntity.setIsActive(customerDto.isActive());
 
             // Update CustomerEntity
             CustomerEntity customerEntity = customerRepository.findById(customerDto.id()).orElse(null);
@@ -249,7 +248,7 @@ public class CustomerServiceImpl implements CustomerService {
         if(!customerAddressRepository.existsByAddressId(id)) {
             return false;
         }
-        return customerAddressRepository.deleteByAddressId(id);
+        return customerAddressRepository.deleteByAddressId(id)>0;
     }
 
     @Override
@@ -268,6 +267,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerAddressDto> getAllAddressByCustomerId(Long id) {
-        return customerAddressRepository.getAllAddressByCustomerId(id);
+        return customerAddressRepository.getAllAddressByCustomerId(id)
+                .stream()
+                .map(customerAddressMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

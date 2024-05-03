@@ -3,6 +3,7 @@ package edu.icet.trendify.dto.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
@@ -11,7 +12,7 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record CustomerAddressDto(
-        @NotEmpty(message = "CustomerId should not be empty")
+        @NotNull(message = "CustomerId should not be null")
         Long cusId,
         Long addressId,
         @NotEmpty(message = "House No should not be empty")
@@ -25,7 +26,7 @@ public record CustomerAddressDto(
         @NotEmpty(message = "Postal Code should not be empty")
         @Digits(integer = 5,fraction = 0, message = "Invalid Postal Code format")
         String postalCode,
-        @NotEmpty(message = "IsDefault value should not be empty")
+        @NotNull(message = "IsDefault value should not be empty")
         Boolean isDefault
 ) implements Serializable {
 }
